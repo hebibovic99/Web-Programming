@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Students App</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Login form submission event listener
+            const loginForm = document.getElementById('login-form');
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                // Retrieve form data
+                const email = $('#exampleInputEmail1').val();
+                const password = $('#exampleInputPassword1').val();
+
+                // Send a POST request to the backend API
+                $.post('http://localhost/Webb-Programming/rest/login', {
+                        email: email,
+                        password: password
+                    })
+                    .done(function(response) {
+                        // Check if token is present in the response
+                        if (response.token) {
+                            // Store the token in localStorage
+                            localStorage.setItem('token', response.token);
+
+                            // Update the URL to index.html
+                            window.history.pushState({}, '', 'index.html');
+
+                            // Load the main content without reloading the page
+                            loadMainContent();
+                        } else {
+                            // Handle error response
+                            console.error('Login failed:', response);
+                            alert('Login failed. Please check your credentials.');
+                        }
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        // Handle AJAX request failure
+                        console.error('AJAX request failed:', textStatus, errorThrown);
+                        alert('An error occurred. Please try again later.');
+                    });
+            });
+
+            // Function to load the main content
+            function loadMainContent() {
+                // Fetch index.html content and replace the current page
+                fetch('index.html')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.open();
+                        document.write(html);
+                        document.close();
+                    });
+            }
+        });
+    </script>
+    <main>
+        <div class="container marketing" style="margin-top:100px;">
+            <div class="row">
+                <form id="login-form">
+                    <div class="mb-3">
+                        <label class="form-label">Email address</label>
+                        <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                            aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

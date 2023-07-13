@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Nunito&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Flaticon Font -->
+    <link href="lib/flaticon/font/flaticon.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Carousel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#" onclick="handleContactUsClick(event)">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="dictionary.html" >Dictionary</a>
+                </li>
+              </ul>
+              <form class="d-flex">
+                <button class="btn btn-outline-success" type="submit">Logout</button>
+              </form>
+            </div>
+          </div>
+        </nav>
+      </header>
+    <div>
+        <br/>
+        <br/>
+        <br/>
+
+
+        <div class="mt-4 ml-3">Add your exam examples</div>
+        <hr/>
+        <button class="btn btn-info btn-lg" id="addEntryButton">Add Exams</button>
+        <div class="modal fade" id="addEntryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <form id="addEntryForm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="signLanguageInput" required placeholder="Name">
+                                <input type="text" class="form-control" id="wordInput" required placeholder="Word">
+                                <input type="text" class="form-control" id="phraseInput" required placeholder="Phrase">
+                                <input type="file" class="form-control-file" id="imageInput" accept="image/png, image/jpeg, image/jpg, image/gif" required placeholder="Image">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="saveEntryButton">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="cardContainer"></div>
+    </div>
+    
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary p-3 back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Javascript -->
+    <script src="js/main.js"></script>
+    <script src="js/dictionary.js"></script>
+    <script src="js/editUserInfo.js"></script>
+    <script src="js/logout.js"></script>
+</body>
+
+</html>

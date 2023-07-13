@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Students App</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Function to load students' information
+      function loadStudents() {
+        $.ajax({
+          url: 'http://localhost/Webb-Programming/rest/students_info',
+          method: 'GET',
+          success: function (response) {
+            displayStudents(response);
+          },
+          error: function (xhr, status, error) {
+            console.log('Error:', error);
+          }
+        });
+      }
+
+      // Function to display students' information in a table
+      function displayStudents(students) {
+        var table = '<table class="table table-striped">' +
+          '<thead>' +
+          '<tr>' +
+          '<th>First Name</th>' +
+          '<th>Last Name</th>' +
+          '</tr>' +
+          '</thead>' +
+          '<tbody>';
+
+        for (var i = 0; i < students.length; i++) {
+          var student = students[i];
+          table += '<tr>' +
+            '<td>' + student.first_name + '</td>' +
+            '<td>' + student.last_name + '</td>' +
+            '</tr>';
+        }
+
+        table += '</tbody>' +
+          '</table>';
+
+        $('#students_info').html(table);
+      }
+
+      // Load students' information when the page is ready
+      loadStudents();
+    });
+    // Check if token is present in localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      window.location.href = 'login.html';
+      document.body.style.display = 'none';
+    }
+
+  </script>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Carousel</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="dictionary.html">Dictionary</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <div id="content">
+  </div>
+  <main>
+
+    <div class="container marketing" style="margin-top:100px;">
+      <div class="container marketing" style="margin-top:100px;">
+        <strong style="font-size: 25px;">
+          Professor List :
+        </strong>
+        <div id="students_info" class="row">
+          <div class="spinner-border" role="status">
+            <span class="sr-only"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div>
+          <button class="btn btn-info btn-lg" data-bs-toggle="modal" data-bs-target="#addStudentModal">Add
+            Student</button>
+        </div>
+      </div>
+    <br />
+      <div id="students-list" class="row">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input id="FirstName" type="text" />
+          <input id="LastName" type="text" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="StudentService.update()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Add Student Modal-->
+  <div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input id="FirstName" type="text" name="FirstName" placeholder="First Name" required />
+            <input id="LastName" type="text" name="LastName" placeholder="Last Name" required />
+            <input id="Description" type="text" name="Description" placeholder="Description" required />
+            <input id="Grade" type="number" name="Grade" placeholder="Grade" required />
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/student-service.js"></script>
+
+</html>
